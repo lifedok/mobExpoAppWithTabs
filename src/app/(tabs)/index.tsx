@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native';
-import { getPokemonList } from "../../src/services/user-service/user.service";
+import { getPokemonList } from "../../services/user-service/user.service";
 import PokemonList from "../../components/modules/pokemon-list/pokemon-list";
 import { useEffect, useState } from "react";
 
