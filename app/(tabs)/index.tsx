@@ -1,15 +1,30 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { ScrollView, StyleSheet } from 'react-native';
+import { getPokemonList } from "../../src/services/user-service/user.service";
+import PokemonList from "../../components/modules/pokemon-list/pokemon-list";
+import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // fetch data
+    const dataFetch = async () => {
+      const data = await getPokemonList();
+      // set state when the data received
+      setPosts(data);
+    };
+
+    dataFetch();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Start Page ==> Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView>
+      {/*<View style={styles.container}></View>*/}
+      <PokemonList list={posts}/>
+      {/*<Text style={styles.title}>Start Page ==> Tab One</Text>*/}
+      {/*<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />*/}
+      {/*<EditScreenInfo path="app/(tabs)/index.tsx" />*/}
+    </ScrollView>
   );
 }
 
@@ -18,6 +33,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    // overflowX: 'auto',
+    // overflow: 'visible'
   },
   title: {
     fontSize: 20,
